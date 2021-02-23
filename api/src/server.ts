@@ -1,6 +1,9 @@
 import express from 'express';
+import 'reflect-metadata';
+import './database/index';
 
 const app = express();
+
 app.use(express.json());
 
 app.get('/users', (request, response) => response.json({ message: 'Hello World!' }));
