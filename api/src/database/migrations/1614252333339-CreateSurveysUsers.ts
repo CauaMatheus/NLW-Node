@@ -32,7 +32,7 @@ export default class CreateSurveysUsers1614252333339 implements MigrationInterfa
         foreignKeys: [
           {
             name: 'fkuser',
-            referencedTableName: 'user',
+            referencedTableName: 'users',
             referencedColumnNames: ['id'],
             columnNames: ['userId'],
             onDelete: 'CASCADE',
