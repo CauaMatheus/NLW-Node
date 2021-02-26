@@ -32,13 +32,16 @@ class SendMailController {
       where: [{ userId: user.id }, { value: null }],
       relations: ['user', 'survey'],
     });
+    const variables = {
+      to: email,
+      subject: survey.title,
+      description: survey.description,
+      id: '',
+      link: process.env.URL_MAIL,
+    };
     if (surveyUserAlreadyExists) {
-      await sendMailService.execute({
-        to: email,
-        subject: survey.title,
-        description: survey.description,
-        userId: user.id,
-      }, path);
+      variables.id = surveyUserAlreadyExists.id;
+      await sendMailService.execute(variables, path);
       return response.json(surveyUserAlreadyExists);
     }
 
@@ -47,13 +50,9 @@ class SendMailController {
       surveyId,
     });
     await surveysUsersRepository.save(surveyUser);
+    variables.id = surveyUser.id;
 
-    await sendMailService.execute({
-      to: email,
-      subject: survey.title,
-      description: survey.description,
-      userId: user.id,
-    }, path);
+    await sendMailService.execute(variables, path);
 
     return response.status(201).json(surveyUser);
   }

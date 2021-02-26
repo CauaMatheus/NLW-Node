@@ -6,7 +6,8 @@ interface Variables {
   to: string,
   subject: string,
   description: string,
-  userId: string
+  id: string,
+  link: string | any
 }
 class SendMailService {
   private client: Transporter
@@ -28,13 +29,17 @@ class SendMailService {
 
   async execute(variables: Variables, path: string) {
     const {
-      to, subject, description, userId,
+      to, subject, description, id, link,
     } = variables;
     const templateFileContent = fs.readFileSync(path).toString('utf8');
     const mailTemplateParse = handlebars.compile(templateFileContent);
 
     const html = mailTemplateParse({
-      name: to, title: subject, description, userId,
+      name: to,
+      title: subject,
+      description,
+      id,
+      link,
     });
 
     const message = await this.client.sendMail({
