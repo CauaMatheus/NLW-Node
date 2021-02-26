@@ -3,6 +3,7 @@ import surveysController from './controllers/SurveysController';
 import userController from './controllers/UserController';
 import sendMailController from './controllers/SendMailController';
 import answerController from './controllers/AnswerController';
+import npsController from './controllers/npsController';
 
 const router = Router();
 
@@ -14,4 +15,6 @@ router.post('/surveys', surveysController.create);
 router.post('/sendMail', sendMailController.execute);
 
 router.get('/answers/:value', answerController.execute);
+
+router.get('/nps/:surveyId', npsController.execute);
 export default router;
