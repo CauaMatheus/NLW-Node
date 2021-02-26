@@ -3,7 +3,7 @@ import surveysController from './controllers/SurveysController';
 import userController from './controllers/UserController';
 import sendMailController from './controllers/SendMailController';
 import answerController from './controllers/AnswerController';
-import npsController from './controllers/npsController';
+import npsController from './controllers/NpsController';
 
 const router = Router();
 
