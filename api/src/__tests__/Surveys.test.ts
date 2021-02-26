@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { getConnection } from 'typeorm';
 import app from '../app';
 import createConnection from '../database/index';
 
@@ -27,5 +28,10 @@ describe('Surveys', () => {
     const response = await request(app).get('/surveys');
     expect(response.status).toBe(200);
     expect(response.body.length).toBe(2);
+  });
+  afterAll(async () => {
+    const connection = getConnection();
+    await connection.dropDatabase();
+    await connection.close();
   });
 });
